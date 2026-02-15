@@ -1,6 +1,7 @@
 const Input = {
     keys: {},
     justPressed: {},
+    isTouchDevice: false,
 
     init() {
         window.addEventListener('keydown', (e) => {
@@ -15,6 +16,55 @@ const Input = {
         window.addEventListener('keyup', (e) => {
             this.keys[e.code] = false;
         });
+
+        this._initTouch();
+    },
+
+    _initTouch() {
+        // Detect touch capability
+        if (!('ontouchstart' in window || navigator.maxTouchPoints > 0)) return;
+        this.isTouchDevice = true;
+
+        // Show touch controls
+        const tc = document.getElementById('touchControls');
+        if (tc) tc.classList.add('visible');
+
+        // Map buttons to virtual key codes
+        const btnMap = {
+            btnLeft:   'ArrowLeft',
+            btnRight:  'ArrowRight',
+            btnJump:   'Space',
+            btnAction: 'Enter',
+        };
+
+        for (const [id, code] of Object.entries(btnMap)) {
+            const btn = document.getElementById(id);
+            if (!btn) continue;
+
+            btn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                if (!this.keys[code]) {
+                    this.justPressed[code] = true;
+                }
+                this.keys[code] = true;
+                btn.classList.add('pressed');
+            }, { passive: false });
+
+            btn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                this.keys[code] = false;
+                btn.classList.remove('pressed');
+            }, { passive: false });
+
+            btn.addEventListener('touchcancel', (e) => {
+                e.preventDefault();
+                this.keys[code] = false;
+                btn.classList.remove('pressed');
+            }, { passive: false });
+        }
+
+        // Prevent scrolling/zooming on the whole page
+        document.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
     },
 
     isDown(code) {

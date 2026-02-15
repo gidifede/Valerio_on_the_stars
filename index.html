@@ -2,12 +2,26 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <title>Valerio On The Stars</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <canvas id="gameCanvas" width="960" height="640"></canvas>
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="960" height="640"></canvas>
+        <div id="touchControls">
+            <div id="dpad">
+                <button class="touch-btn" id="btnLeft" aria-label="Sinistra">&#9664;</button>
+                <button class="touch-btn" id="btnRight" aria-label="Destra">&#9654;</button>
+            </div>
+            <div id="actionBtns">
+                <button class="touch-btn" id="btnJump" aria-label="Salta">SALTA</button>
+                <button class="touch-btn" id="btnAction" aria-label="Azione">OK</button>
+            </div>
+        </div>
+    </div>
     <script src="js/utils.js"></script>
     <script src="js/input.js"></script>
     <script src="js/audio.js"></script>

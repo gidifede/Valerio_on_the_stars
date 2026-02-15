@@ -196,12 +196,20 @@ function loadAssets(onProgress, onComplete) {
         Images[key] = img;
     }
 
+    // Helper: load audio with timeout fallback (mobile may block preload)
+    function loadAudio(audio, path) {
+        let done = false;
+        const finish = () => { if (!done) { done = true; tick(); } };
+        audio.addEventListener('canplaythrough', finish, { once: true });
+        audio.addEventListener('error', () => { console.warn('Failed to load audio:', path); finish(); }, { once: true });
+        setTimeout(finish, 3000); // fallback: don't block loading on mobile
+    }
+
     // SFX
     for (const [key, path] of Object.entries(SFX_MANIFEST)) {
         const audio = new Audio(ASSET_BASE + path);
         audio.preload = 'auto';
-        audio.addEventListener('canplaythrough', tick, { once: true });
-        audio.addEventListener('error', () => { console.warn('Failed to load sfx:', path); tick(); }, { once: true });
+        loadAudio(audio, path);
         Sounds[key] = audio;
     }
 
@@ -210,8 +218,7 @@ function loadAssets(onProgress, onComplete) {
         const audio = new Audio(ASSET_BASE + path);
         audio.preload = 'auto';
         audio.loop = true;
-        audio.addEventListener('canplaythrough', tick, { once: true });
-        audio.addEventListener('error', () => { console.warn('Failed to load music:', path); tick(); }, { once: true });
+        loadAudio(audio, path);
         Music[key] = audio;
     }
 }

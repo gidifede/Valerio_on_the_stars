@@ -1,6 +1,6 @@
 const Player = {
     x: 0, y: 0,
-    w: 40, h: 70,           // collision box (smaller than sprite)
+    w: 36, h: 64,           // collision box (forgiving for young players)
     vx: 0, vy: 0,
     onGround: false,
     fellOffWorld: false,
@@ -17,6 +17,13 @@ const Player = {
     maxJumps: 1,        // 2 when salto_stellare active
     jumpsLeft: 1,
 
+    // Coyote time & jump buffering
+    coyoteTime: 0,          // time since left ground (allows late jumps)
+    jumpBuffer: 0,          // time since jump was pressed (allows early jumps)
+    COYOTE_GRACE: 0.10,     // 100ms grace period
+    JUMP_BUFFER: 0.12,      // 120ms buffer window
+    wasOnGround: false,
+
     // Animation
     anim: 'idle',
     animTimer: 0,
@@ -32,8 +39,8 @@ const Player = {
     checkpointY: 0,
 
     // Drawing offset (center sprite on collision box)
-    drawOffX: -13,
-    drawOffY: -22,
+    drawOffX: -15,
+    drawOffY: -28,
 
     // Water slowdown
     inWater: false,
@@ -52,6 +59,9 @@ const Player = {
         this.legoCount = 0;
         this.maxJumps = 1;
         this.jumpsLeft = 1;
+        this.coyoteTime = 0;
+        this.jumpBuffer = 0;
+        this.wasOnGround = true; // suppress land sound on spawn
         this.invincible = false;
         this.invTimer = 0;
         this.inWater = false;
@@ -73,21 +83,39 @@ const Player = {
         this.vx = moveDir * currentSpeed;
         if (moveDir !== 0) this.facingRight = moveDir > 0;
 
-        // Jump (supports double jump with salto_stellare)
+        // Coyote time: track time since leaving ground
+        if (this.onGround) {
+            this.coyoteTime = 0;
+            this.jumpsLeft = this.maxJumps;
+            if (!this.wasOnGround) Audio_.playSfx('land'); // just landed
+        } else {
+            this.coyoteTime += dt;
+        }
+        this.wasOnGround = this.onGround;
+
+        // Jump buffering: remember press for a short window
         if (Input.jump()) {
-            if (this.onGround) {
+            this.jumpBuffer = this.JUMP_BUFFER;
+        } else {
+            this.jumpBuffer -= dt;
+        }
+
+        // Jump execution (coyote time + buffer)
+        if (this.jumpBuffer > 0) {
+            const canCoyote = !this.onGround && this.coyoteTime < this.COYOTE_GRACE;
+            if (this.onGround || canCoyote) {
                 this.vy = this.jumpForce;
                 this.onGround = false;
+                this.coyoteTime = this.COYOTE_GRACE; // consume coyote
                 this.jumpsLeft = this.maxJumps - 1;
+                this.jumpBuffer = 0;
+                Audio_.playSfx('jump');
             } else if (this.jumpsLeft > 0) {
                 this.vy = this.jumpForce;
                 this.jumpsLeft--;
+                this.jumpBuffer = 0;
+                Audio_.playSfx('jump');
             }
-        }
-
-        // Reset jumps when on ground
-        if (this.onGround) {
-            this.jumpsLeft = this.maxJumps;
         }
 
         // Physics (gravity may be modified by powerup)

@@ -17,6 +17,7 @@ const Audio_ = {
         };
         window.addEventListener('keydown', unlock, { once: true });
         window.addEventListener('click', unlock, { once: true });
+        window.addEventListener('touchstart', unlock, { once: true });
     },
 
     playSfx(key) {

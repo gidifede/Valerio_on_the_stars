@@ -18,8 +18,9 @@ const Powerups = {
         this.items.push({
             type, x, y,
             w: 40, h: 40,
-            vy: -250,          // pop up from ? block
-            settled: false,    // true once landed on ground
+            vy: -200,          // pop up from ? block
+            floatY: y,         // target float position (set when pop finishes)
+            rising: true,      // true during initial pop-up
             bobTimer: Math.random() * Math.PI * 2,
             collected: false,
         });
@@ -30,30 +31,21 @@ const Powerups = {
         for (const item of this.items) {
             if (item.collected) continue;
 
-            // Apply gravity until settled on ground
-            if (!item.settled) {
-                item.vy += GRAVITY * dt;
+            // Pop up then float in place (never falls off)
+            if (item.rising) {
+                item.vy += GRAVITY * 0.5 * dt; // gentle deceleration
                 item.y += item.vy * dt;
-
-                // Check tile collision below (land on solid ground)
-                const col = Math.floor((item.x + item.w / 2) / TILE);
-                const bottomRow = Math.floor((item.y + item.h) / TILE);
-                if (Tilemap.isSolid(col, bottomRow) && item.vy > 0) {
-                    item.y = bottomRow * TILE - item.h;
-                    item.vy = 0;
-                    item.settled = true;
-                }
-                // Fall off world safety
-                if (item.y > Tilemap.worldHeight() + 200) {
-                    item.collected = true;
-                    continue;
+                if (item.vy >= 0) {
+                    // Reached peak — lock float position
+                    item.rising = false;
+                    item.floatY = item.y;
                 }
             } else {
                 item.bobTimer += dt * 3;
             }
 
             // Player pickup
-            const drawY = item.settled ? item.y + Math.sin(item.bobTimer) * 4 - 2 : item.y;
+            const drawY = item.rising ? item.y : item.floatY + Math.sin(item.bobTimer) * 4;
             if (rectsOverlap(
                 Player.x, Player.y, Player.w, Player.h,
                 item.x, drawY, item.w, item.h
@@ -130,13 +122,14 @@ const Powerups = {
             const img = Images[def.imgKey];
             if (!img || !img.complete) continue;
 
-            const bobY = item.settled ? Math.sin(item.bobTimer) * 4 : 0;
+            const bobY = item.rising ? 0 : Math.sin(item.bobTimer) * 4;
             // Draw first frame of powerup spritesheet (32x32 from 128x32)
             const sx = 0, sy = 0;
+            const posY = item.rising ? item.y : item.floatY;
             ctx.drawImage(img,
                 sx, sy, POWERUP_ANIM.frameW, POWERUP_ANIM.frameH,
                 Math.round(item.x - Camera.x),
-                Math.round(item.y + bobY - Camera.y),
+                Math.round(posY + bobY - Camera.y),
                 item.w, item.h);
         }
     },

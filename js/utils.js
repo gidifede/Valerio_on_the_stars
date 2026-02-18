@@ -138,6 +138,12 @@ const SFX_MANIFEST = {
     explosion:  'audio/sfx/explosion.wav',
     powerup:    'audio/sfx/powerup.wav',
     death:      'audio/sfx/player-death.wav',
+    jump:       'audio/sfx/jump.wav',
+    land:       'audio/sfx/land.wav',
+    star:       'audio/sfx/star.wav',
+    coin:       'audio/sfx/coin.wav',
+    checkpoint: 'audio/sfx/checkpoint.wav',
+    stomp:      'audio/sfx/stomp.wav',
 };
 
 const MUSIC_MANIFEST = {

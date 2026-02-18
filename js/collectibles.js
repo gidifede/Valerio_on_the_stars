@@ -74,7 +74,7 @@ const Collectibles = {
 
                 if (item.type === 'star') {
                     Player.starsCollected++;
-                    Audio_.playSfx('powerup');
+                    Audio_.playSfx('star');
                     if (typeof Particles !== 'undefined') Particles.emit(item.x + item.w / 2, item.y + item.h / 2, 10, '#FFD700', 150);
                 } else if (item.isLego) {
                     Player.legoCount++;
@@ -82,9 +82,9 @@ const Collectibles = {
                         Player.legoCount -= 50;
                         Player.lives = Math.min(Player.lives + 1, 5);
                     }
-                    Audio_.playSfx('hit');
+                    Audio_.playSfx('coin');
                 } else {
-                    Audio_.playSfx('hit');
+                    Audio_.playSfx('coin');
                 }
             }
         }
@@ -144,7 +144,7 @@ const LevelObjects = {
                 cp.activated = true;
                 Player.checkpointX = cp.x;
                 Player.checkpointY = cp.y - Player.h + cp.h;
-                Audio_.playSfx('powerup');
+                Audio_.playSfx('checkpoint');
             }
         }
 

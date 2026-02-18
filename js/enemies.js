@@ -109,7 +109,7 @@ const Enemies = {
                     e.alive = false;
                     Player.bounce();
                     Player.score += 200;
-                    Audio_.playSfx('hit');
+                    Audio_.playSfx('stomp');
                     if (typeof Particles !== 'undefined') Particles.emit(e.x + e.w / 2, e.y + e.h / 2, 8, '#ffffff', 120);
                 } else {
                     Player.takeDamage();

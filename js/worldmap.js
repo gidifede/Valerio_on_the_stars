@@ -9,10 +9,13 @@ const WorldMap = {
     progress: {},       // { '1-1': { completed: false, stars: 0 } }
     selectedIndex: 0,
     pulseTimer: 0,
+    cheatBuffer: '',
+    cheatUnlocked: false,
 
     init() {
         this.selectedIndex = 0;
         this.pulseTimer = 0;
+        this.cheatBuffer = '';
         for (const id of this.allLevels) {
             if (!this.progress[id]) {
                 this.progress[id] = { completed: false, stars: 0 };
@@ -21,6 +24,7 @@ const WorldMap = {
     },
 
     isUnlocked(levelId) {
+        if (this.cheatUnlocked) return true;
         const idx = this.allLevels.indexOf(levelId);
         if (idx === 0) return true; // 1-1 always unlocked
 
@@ -58,6 +62,20 @@ const WorldMap = {
 
     update(dt) {
         this.pulseTimer += dt;
+
+        // Cheat code: type "valerio" to unlock all levels
+        for (const ch of 'abcdefghijklmnopqrstuvwxyz') {
+            if (Input.wasPressed('Key' + ch.toUpperCase())) {
+                this.cheatBuffer += ch;
+                if (this.cheatBuffer.length > 7) this.cheatBuffer = this.cheatBuffer.slice(-7);
+                if (this.cheatBuffer === 'valerio') {
+                    this.cheatUnlocked = true;
+                    this.cheatBuffer = '';
+                    Audio_.playSfx('star');
+                }
+                break;
+            }
+        }
 
         if (Input.consumePress('ArrowRight') || Input.consumePress('KeyD')) {
             this.selectedIndex = Math.min(this.selectedIndex + 1, this.allLevels.length - 1);

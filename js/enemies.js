@@ -187,11 +187,11 @@ const Enemies = {
             const len = Math.sqrt(dx * dx + dy * dy) || 1;
             const speed = 200;
             this.projectiles.push({
-                x: e.x + e.w / 2 - 10,
-                y: e.y + e.h / 2 - 10,
+                x: e.x + e.w / 2 - 36,
+                y: e.y + e.h / 2 - 36,
                 vx: (dx / len) * speed,
                 vy: (dy / len) * speed,
-                w: 20, h: 20,
+                w: 72, h: 72,
                 life: 3.0,
             });
         }
@@ -247,7 +247,22 @@ const Enemies = {
             p.y += p.vy * dt;
             p.life -= dt;
 
-            // Hit player
+            // Stomp: player lands on top → destroy fireball
+            if (Player.vy > 0 && rectsOverlap(
+                Player.x, Player.y, Player.w, Player.h,
+                p.x, p.y, p.w, p.h
+            )) {
+                const playerBottom = Player.y + Player.h;
+                const fireTop = p.y;
+                if (playerBottom - Player.vy * dt < fireTop + p.h * 0.4) {
+                    p.life = 0;
+                    Player.bounce();
+                    Audio_.playSfx('stomp');
+                    continue;
+                }
+            }
+
+            // Hit player (side/bottom collision)
             if (!Player.invincible && rectsOverlap(
                 Player.x, Player.y, Player.w, Player.h,
                 p.x, p.y, p.w, p.h

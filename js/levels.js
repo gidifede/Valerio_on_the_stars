@@ -375,18 +375,18 @@ const LEVELS = {
         music: 'level2',
         starsTotal: 0,
         isBoss: true,
-        boss: { type: 'poker_infuocato', col: 15, row: 8 },
-        // 20 columns x 14 rows — castle arena with lava pit
+        boss: { type: 'poker_infuocato', col: 16, row: 8 },
+        // 20 columns x 14 rows — castle arena with platforms
         tiles: [
             '[AAAAAAAAAAAAAAAAAA]',  // 0
             'a                  a',  // 1
             'a                  a',  // 2
             'a                  a',  // 3
             'a                  a',  // 4
-            'a                  a',  // 5
-            'a                  a',  // 6
-            'a      efb         a',  // 7
-            'a            efb   a',  // 8
+            'a  efb        efb  a',  // 5
+            'a     efb  efb     a',  // 6
+            'a       efb        a',  // 7
+            'a  efb        efb  a',  // 8
             'aAAAAA        AAAAaa',  // 9
             'aaaaaa        aaaaaa',  // 10
             'aaaaaa VVVVVV aaaaaa',  // 11

@@ -111,6 +111,9 @@ const IMG_MANIFEST = {
     // Megatron
     megatron:       'sprites/megatron/Megatron_Felice_robot-spritesheet.png',
 
+    // Valerio portrait (title screen)
+    valerioPortrait: 'sprites/valerio/valerio_portrait.png',
+
     // Backgrounds — Forest (World 1)
     forestBack:     'backgrounds/forest/back.png',
     forestMid:      'backgrounds/forest/middle.png',

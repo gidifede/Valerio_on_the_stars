@@ -18,7 +18,7 @@ const Powerups = {
         this.items.push({
             type, x, y,
             w: 40, h: 40,
-            vy: -200,          // pop up from ? block
+            vy: -100,          // gentle pop up from ? block
             floatY: y,         // target float position (set when pop finishes)
             rising: true,      // true during initial pop-up
             bobTimer: Math.random() * Math.PI * 2,

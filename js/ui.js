@@ -28,10 +28,10 @@ const UI = {
         ctx.font = 'bold 36px monospace';
         ctx.fillText('ON THE STARS', CANVAS_W / 2, 250);
 
-        // Megatron
-        const mImg = Images.megatron;
-        if (mImg && mImg.complete) {
-            ctx.drawImage(mImg, CANVAS_W / 2 - 48, 290, 96, 96);
+        // Valerio portrait
+        const vImg = Images.valerioPortrait;
+        if (vImg && vImg.complete) {
+            ctx.drawImage(vImg, CANVAS_W / 2 - 64, 275, 128, 128);
         }
 
         // Pulsing prompt

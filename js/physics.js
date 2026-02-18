@@ -91,7 +91,7 @@ const Physics = {
                                         if (pcol === col && prow === row) {
                                             Powerups.spawn(type,
                                                 col * TILE + (TILE - 40) / 2,
-                                                (row - 1) * TILE);
+                                                (row + 1) * TILE);
                                         }
                                     }
                                 }

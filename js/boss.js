@@ -9,7 +9,7 @@ const Boss = {
             name: 'Grande Slime',
         },
         poker_infuocato: {
-            hp: 8, w: 112, h: 128,
+            hp: 8, w: 112, h: 100,
             frames: ['pokerMad'], deadFrame: 'pokerSad', fps: 1,
             name: 'Poker Infuocato',
         },
@@ -96,12 +96,12 @@ const Boss = {
         b.y += b.vy * dt;
         this._groundCheck(b);
 
-        // Stomp detection
+        // Stomp detection — generous top 50% zone for kid-friendly gameplay
         if (!Player.invincible && b.state !== 'dead') {
             if (rectsOverlap(Player.x, Player.y, Player.w, Player.h, b.x, b.y, b.w, b.h)) {
                 const playerBottom = Player.y + Player.h;
                 const bossTop = b.y;
-                if (Player.vy > 0 && playerBottom - Player.vy * dt < bossTop + 15) {
+                if (Player.vy > 0 && playerBottom < bossTop + b.h * 0.5) {
                     this.takeDamage();
                     Player.bounce();
                 } else if (!Player.invincible) {
@@ -174,11 +174,11 @@ const Boss = {
                     const spread = (b._shotsFired - Math.ceil(b._shotsTotal / 2)) * 0.2;
                     const speed = 220;
                     Enemies.projectiles.push({
-                        x: b.x + b.w / 2 - 10,
-                        y: b.y + b.h / 2 - 10,
+                        x: b.x + b.w / 2 - 36,
+                        y: b.y + b.h / 2 - 36,
                         vx: (dx / len) * speed + spread * (-dy / len) * speed * 0.5,
                         vy: (dy / len) * speed + spread * (dx / len) * speed * 0.5,
-                        w: 20, h: 20, life: 3.0,
+                        w: 72, h: 72, life: 3.0,
                     });
                 }
                 b.stateTimer -= dt;
@@ -245,11 +245,11 @@ const Boss = {
                     const len = Math.sqrt(dx * dx + dy * dy) || 1;
                     const speed = 200;
                     Enemies.projectiles.push({
-                        x: b.x + b.w / 2 - 10,
-                        y: b.y + b.h / 2 - 10,
+                        x: b.x + b.w / 2 - 36,
+                        y: b.y + b.h / 2 - 36,
                         vx: (dx / len) * speed,
                         vy: (dy / len) * speed,
-                        w: 20, h: 20, life: 3.0,
+                        w: 72, h: 72, life: 3.0,
                     });
                 }
                 b.stateTimer -= dt;

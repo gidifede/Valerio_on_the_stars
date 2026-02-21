@@ -115,7 +115,7 @@ const WorldMap = {
         // Title
         ctx.textAlign = 'center';
         ctx.fillStyle = '#FFD700';
-        ctx.font = 'bold 36px monospace';
+        ctx.font = 'bold 36px "Fredoka One", monospace';
         ctx.fillText('SELEZIONA LIVELLO', CANVAS_W / 2, 60);
 
         // Draw nodes
@@ -177,20 +177,20 @@ const WorldMap = {
 
             // Level ID text
             ctx.fillStyle = unlocked ? '#fff' : '#666';
-            ctx.font = isBoss ? 'bold 16px monospace' : 'bold 20px monospace';
+            ctx.font = isBoss ? 'bold 16px "Fredoka One", monospace' : 'bold 20px "Fredoka One", monospace';
             ctx.textAlign = 'center';
             ctx.fillText(isBoss ? 'BOSS' : id, x, nodeY + 7);
 
             // Lock icon
             if (!unlocked) {
                 ctx.fillStyle = '#888';
-                ctx.font = '24px monospace';
+                ctx.font = '24px "Fredoka One", monospace';
                 ctx.fillText('🔒', x, nodeY - 35);
             }
 
             // Stars below node (not for boss levels)
             if (unlocked && !isBoss) {
-                ctx.font = '16px monospace';
+                ctx.font = '16px "Fredoka One", monospace';
                 ctx.fillStyle = '#FFD700';
                 const starText = '★'.repeat(stars) + '☆'.repeat(3 - stars);
                 ctx.fillText(starText, x, nodeY + 55);
@@ -199,7 +199,7 @@ const WorldMap = {
             // Crown for completed bosses
             if (isBoss && completed) {
                 ctx.fillStyle = '#FFD700';
-                ctx.font = '20px monospace';
+                ctx.font = '20px "Fredoka One", monospace';
                 ctx.fillText('👑', x, nodeY - 35);
             }
         }
@@ -209,14 +209,14 @@ const WorldMap = {
         const selWorld = this.worlds.find(w => w.levels.includes(selId) || w.boss === selId);
         if (selWorld) {
             ctx.fillStyle = selWorld.color;
-            ctx.font = 'bold 24px monospace';
+            ctx.font = 'bold 24px "Fredoka One", monospace';
             ctx.textAlign = 'center';
             ctx.fillText(selWorld.name, CANVAS_W / 2, 150);
 
             const levelData = LEVELS[selId];
             if (levelData) {
                 ctx.fillStyle = '#ccc';
-                ctx.font = '20px monospace';
+                ctx.font = '20px "Fredoka One", monospace';
                 ctx.fillText(levelData.name, CANVAS_W / 2, 185);
             }
         }
@@ -227,19 +227,19 @@ const WorldMap = {
             totalStars += (this.progress[id] && this.progress[id].stars) || 0;
         }
         ctx.fillStyle = '#FFD700';
-        ctx.font = '20px monospace';
+        ctx.font = '20px "Fredoka One", monospace';
         ctx.textAlign = 'center';
         ctx.fillText(`★ Totale: ${totalStars}/18`, CANVAS_W / 2, 440);
 
         // Instructions
         ctx.fillStyle = '#888';
-        ctx.font = '16px monospace';
+        ctx.font = '16px "Fredoka One", monospace';
         ctx.fillText('← → Seleziona    INVIO Gioca    ESC Menu', CANVAS_W / 2, 550);
 
         // Locked message
         if (!this.isUnlocked(selId)) {
             ctx.fillStyle = '#FF6666';
-            ctx.font = '18px monospace';
+            ctx.font = '18px "Fredoka One", monospace';
             if (selId.endsWith('-B')) {
                 ctx.fillText('Raccogli tutte le stelle del mondo per sbloccare il Boss!', CANVAS_W / 2, 500);
             } else {

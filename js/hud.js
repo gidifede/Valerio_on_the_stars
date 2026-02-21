@@ -21,7 +21,7 @@ const HUD = {
                       CANVAS_W - 130, 12, false);
         }
         ctx.fillStyle = '#FFD700';
-        ctx.font = 'bold 24px monospace';
+        ctx.font = 'bold 24px "Fredoka One", monospace';
         ctx.textAlign = 'left';
         ctx.fillText(`${Player.starsCollected}/${Player.starsTotal}`,
                      CANVAS_W - 95, 38);
@@ -33,7 +33,7 @@ const HUD = {
                 ctx.drawImage(legoImg, 15, 50, 24, 24);
             }
             ctx.fillStyle = '#FF9800';
-            ctx.font = 'bold 18px monospace';
+            ctx.font = 'bold 18px "Fredoka One", monospace';
             ctx.textAlign = 'left';
             ctx.fillText(`${Player.legoCount}/50`, 44, 68);
         }
@@ -63,7 +63,7 @@ const HUD = {
             } else {
                 // "Until damage" indicator
                 ctx.fillStyle = '#00E676';
-                ctx.font = '12px monospace';
+                ctx.font = '12px "Fredoka One", monospace';
                 ctx.textAlign = 'left';
                 ctx.fillText('ATTIVO', 48, puY + 20);
             }

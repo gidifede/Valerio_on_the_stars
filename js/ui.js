@@ -22,10 +22,10 @@ const UI = {
         // Title
         ctx.textAlign = 'center';
         ctx.fillStyle = '#FFD700';
-        ctx.font = 'bold 52px monospace';
+        ctx.font = 'bold 52px "Fredoka One", monospace';
         ctx.fillText('VALERIO', CANVAS_W / 2, 200);
         ctx.fillStyle = '#87CEEB';
-        ctx.font = 'bold 36px monospace';
+        ctx.font = 'bold 36px "Fredoka One", monospace';
         ctx.fillText('ON THE STARS', CANVAS_W / 2, 250);
 
         // Valerio portrait
@@ -38,20 +38,20 @@ const UI = {
         const alpha = 0.5 + Math.sin(this.titlePulse * 3) * 0.5;
         ctx.globalAlpha = alpha;
         ctx.fillStyle = '#fff';
-        ctx.font = '22px monospace';
+        ctx.font = '22px "Fredoka One", monospace';
         ctx.fillText('PREMI INVIO', CANVAS_W / 2, 440);
         ctx.globalAlpha = 1;
 
         // High score
         if (Game.highScore > 0) {
             ctx.fillStyle = '#aaa';
-            ctx.font = '18px monospace';
+            ctx.font = '18px "Fredoka One", monospace';
             ctx.fillText(`Record: ${Game.highScore}`, CANVAS_W / 2, 490);
         }
 
         // Controls
         ctx.fillStyle = '#888';
-        ctx.font = '16px monospace';
+        ctx.font = '16px "Fredoka One", monospace';
         ctx.fillText('← → / A D  Muovi    ↑ / W / SPAZIO  Salta    P  Pausa', CANVAS_W / 2, 520);
     },
 
@@ -74,12 +74,12 @@ const UI = {
 
         ctx.textAlign = 'center';
         ctx.fillStyle = worldColors[this.levelIntroWorld] || '#FFD700';
-        ctx.font = 'bold 36px monospace';
+        ctx.font = 'bold 36px "Fredoka One", monospace';
         ctx.fillText(worldNames[this.levelIntroWorld] || 'MONDO ' + this.levelIntroWorld,
                      CANVAS_W / 2, CANVAS_H / 2 - 30);
 
         ctx.fillStyle = '#fff';
-        ctx.font = '24px monospace';
+        ctx.font = '24px "Fredoka One", monospace';
         ctx.fillText(this.levelIntroText, CANVAS_W / 2, CANVAS_H / 2 + 20);
 
         return this.levelIntroTimer <= 0;
@@ -91,10 +91,10 @@ const UI = {
 
         ctx.textAlign = 'center';
         ctx.fillStyle = '#fff';
-        ctx.font = 'bold 44px monospace';
+        ctx.font = 'bold 44px "Fredoka One", monospace';
         ctx.fillText('PAUSA', CANVAS_W / 2, CANVAS_H / 2 - 20);
 
-        ctx.font = '20px monospace';
+        ctx.font = '20px "Fredoka One", monospace';
         ctx.fillStyle = '#aaa';
         ctx.fillText('Premi P per continuare', CANVAS_W / 2, CANVAS_H / 2 + 30);
     },
@@ -105,15 +105,15 @@ const UI = {
 
         ctx.textAlign = 'center';
         ctx.fillStyle = '#FF4444';
-        ctx.font = 'bold 48px monospace';
+        ctx.font = 'bold 48px "Fredoka One", monospace';
         ctx.fillText('GAME OVER', CANVAS_W / 2, CANVAS_H / 2 - 50);
 
         ctx.fillStyle = '#FFD700';
-        ctx.font = '24px monospace';
+        ctx.font = '24px "Fredoka One", monospace';
         ctx.fillText(`Punteggio: ${Player.score}`, CANVAS_W / 2, CANVAS_H / 2 + 10);
 
         ctx.fillStyle = '#fff';
-        ctx.font = '20px monospace';
+        ctx.font = '20px "Fredoka One", monospace';
         ctx.fillText('INVIO = Riprova    ESC = Mappa', CANVAS_W / 2, CANVAS_H / 2 + 60);
     },
 
@@ -123,15 +123,15 @@ const UI = {
 
         ctx.textAlign = 'center';
         ctx.fillStyle = '#4CAF50';
-        ctx.font = 'bold 44px monospace';
+        ctx.font = 'bold 44px "Fredoka One", monospace';
         ctx.fillText('LIVELLO COMPLETATO!', CANVAS_W / 2, CANVAS_H / 2 - 40);
 
         ctx.fillStyle = '#FFD700';
-        ctx.font = '28px monospace';
+        ctx.font = '28px "Fredoka One", monospace';
         ctx.fillText(`★ ${Player.starsCollected}/${Player.starsTotal}`, CANVAS_W / 2, CANVAS_H / 2 + 10);
 
         ctx.fillStyle = '#fff';
-        ctx.font = '24px monospace';
+        ctx.font = '24px "Fredoka One", monospace';
         ctx.fillText(`Punteggio: ${Player.score}`, CANVAS_W / 2, CANVAS_H / 2 + 50);
 
         const alpha = 0.5 + Math.sin(Date.now() / 300) * 0.5;
@@ -150,13 +150,13 @@ const UI = {
         ctx.textAlign = 'center';
 
         ctx.fillStyle = worldColors[worldNum] || '#FFD700';
-        ctx.font = 'bold 28px monospace';
+        ctx.font = 'bold 28px "Fredoka One", monospace';
         ctx.fillText('GUARDIANO DEL MONDO ' + worldNum, CANVAS_W / 2, CANVAS_H / 2 - 60);
 
         const data = LEVELS[Game.currentLevel];
         if (data) {
             ctx.fillStyle = '#FF4444';
-            ctx.font = 'bold 44px monospace';
+            ctx.font = 'bold 44px "Fredoka One", monospace';
             const scale = 1 + Math.sin(timer * 5) * 0.05;
             ctx.save();
             ctx.translate(CANVAS_W / 2, CANVAS_H / 2);
@@ -166,7 +166,7 @@ const UI = {
         }
 
         ctx.fillStyle = '#fff';
-        ctx.font = 'bold 60px monospace';
+        ctx.font = 'bold 60px "Fredoka One", monospace';
         ctx.fillText(Math.ceil(timer), CANVAS_W / 2, CANVAS_H / 2 + 80);
     },
 
@@ -177,23 +177,23 @@ const UI = {
         ctx.textAlign = 'center';
 
         ctx.fillStyle = '#FFD700';
-        ctx.font = 'bold 48px monospace';
+        ctx.font = 'bold 48px "Fredoka One", monospace';
         ctx.fillText('GUARDIANO SCONFITTO!', CANVAS_W / 2, CANVAS_H / 2 - 50);
 
         ctx.fillStyle = '#fff';
-        ctx.font = '28px monospace';
+        ctx.font = '28px "Fredoka One", monospace';
         ctx.fillText(`Punteggio: ${Player.score}`, CANVAS_W / 2, CANVAS_H / 2 + 10);
 
         if (Game.highScore > 0) {
             ctx.fillStyle = '#aaa';
-            ctx.font = '20px monospace';
+            ctx.font = '20px "Fredoka One", monospace';
             ctx.fillText(`Record: ${Game.highScore}`, CANVAS_W / 2, CANVAS_H / 2 + 45);
         }
 
         const alpha = 0.5 + Math.sin(Date.now() / 300) * 0.5;
         ctx.globalAlpha = alpha;
         ctx.fillStyle = '#fff';
-        ctx.font = '22px monospace';
+        ctx.font = '22px "Fredoka One", monospace';
         ctx.fillText('PREMI INVIO', CANVAS_W / 2, CANVAS_H / 2 + 100);
         ctx.globalAlpha = 1;
     },
@@ -217,7 +217,7 @@ const UI = {
         ctx.textAlign = 'center';
 
         ctx.fillStyle = '#FFD700';
-        ctx.font = 'bold 56px monospace';
+        ctx.font = 'bold 56px "Fredoka One", monospace';
         const scale = 1 + Math.sin(this.victoryTimer * 3) * 0.03;
         ctx.save();
         ctx.translate(CANVAS_W / 2, 120);
@@ -226,7 +226,7 @@ const UI = {
         ctx.restore();
 
         ctx.fillStyle = '#87CEEB';
-        ctx.font = 'bold 28px monospace';
+        ctx.font = 'bold 28px "Fredoka One", monospace';
         ctx.fillText('HAI SALVATO MEGATRON!', CANVAS_W / 2, 180);
 
         const mImg = Images.megatron;
@@ -240,24 +240,24 @@ const UI = {
         }
 
         ctx.fillStyle = '#FFD700';
-        ctx.font = '24px monospace';
+        ctx.font = '24px "Fredoka One", monospace';
         ctx.fillText(`Stelle: ${totalStars}/18`, CANVAS_W / 2, 350);
 
         ctx.fillStyle = '#fff';
         ctx.fillText(`Punteggio: ${Player.score}`, CANVAS_W / 2, 390);
 
         ctx.fillStyle = '#aaa';
-        ctx.font = '20px monospace';
+        ctx.font = '20px "Fredoka One", monospace';
         ctx.fillText(`Record: ${Game.highScore}`, CANVAS_W / 2, 425);
 
         ctx.fillStyle = '#FF69B4';
-        ctx.font = 'bold 32px monospace';
+        ctx.font = 'bold 32px "Fredoka One", monospace';
         ctx.fillText('GRAZIE VALERIO!', CANVAS_W / 2, 490);
 
         const alpha2 = 0.5 + Math.sin(this.victoryTimer * 4) * 0.5;
         ctx.globalAlpha = alpha2;
         ctx.fillStyle = '#fff';
-        ctx.font = '22px monospace';
+        ctx.font = '22px "Fredoka One", monospace';
         ctx.fillText('PREMI INVIO', CANVAS_W / 2, 560);
         ctx.globalAlpha = 1;
     },

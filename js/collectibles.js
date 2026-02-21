@@ -183,7 +183,7 @@ const LevelObjects = {
             // Indicator if not open
             if (!this.exitOpen) {
                 ctx.fillStyle = 'rgba(255,50,50,0.8)';
-                ctx.font = '14px monospace';
+                ctx.font = '14px "Fredoka One", monospace';
                 ctx.textAlign = 'center';
                 ctx.fillText(`★ ${Player.starsCollected}/${Player.starsTotal}`, dx + 35, dy - 10);
             }

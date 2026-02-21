@@ -12,7 +12,7 @@ loadAssets(
         ctx.fillStyle = '#111';
         ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
         ctx.fillStyle = '#fff';
-        ctx.font = '20px monospace';
+        ctx.font = '20px "Fredoka One", monospace';
         ctx.textAlign = 'center';
         ctx.fillText(`Caricamento... ${loaded}/${total}`, CANVAS_W / 2, CANVAS_H / 2);
         // Progress bar
@@ -39,6 +39,9 @@ function gameLoop(timestamp) {
     lastTime = timestamp;
 
     Game.update(dt);
+
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
     Game.draw(ctx, dt);
 
     Input.clearJustPressed();

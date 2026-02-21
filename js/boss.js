@@ -395,7 +395,7 @@ const Boss = {
 
         // Boss name
         ctx.fillStyle = '#fff';
-        ctx.font = 'bold 16px monospace';
+        ctx.font = 'bold 16px "Fredoka One", monospace';
         ctx.textAlign = 'center';
         ctx.fillText(def.name, CANVAS_W / 2, 60);
 

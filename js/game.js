@@ -165,7 +165,7 @@ const Game = {
                 ctx.fillStyle = '#111';
                 ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
                 ctx.fillStyle = '#fff';
-                ctx.font = '24px monospace';
+                ctx.font = '24px "Fredoka One", monospace';
                 ctx.textAlign = 'center';
                 ctx.fillText('Caricamento...', CANVAS_W / 2, CANVAS_H / 2);
                 break;
@@ -188,6 +188,7 @@ const Game = {
             case 'playing':
                 this.drawGameWorld(ctx);
                 if (typeof Particles !== 'undefined') Particles.draw(ctx);
+                this.drawVignette(ctx);
                 HUD.draw(ctx);
                 break;
 
@@ -221,6 +222,7 @@ const Game = {
                     Boss.drawHUD(ctx);
                 }
                 if (typeof Particles !== 'undefined') Particles.draw(ctx);
+                this.drawVignette(ctx);
                 HUD.draw(ctx);
                 break;
 
@@ -249,5 +251,16 @@ const Game = {
         Powerups.draw(ctx);
         Enemies.draw(ctx);
         Player.draw(ctx);
+    },
+
+    drawVignette(ctx) {
+        const cx = CANVAS_W / 2;
+        const cy = CANVAS_H / 2;
+        const r = Math.max(CANVAS_W, CANVAS_H) * 0.7;
+        const grad = ctx.createRadialGradient(cx, cy, r * 0.4, cx, cy, r);
+        grad.addColorStop(0, 'rgba(0,0,0,0)');
+        grad.addColorStop(1, 'rgba(0,0,0,0.35)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
     },
 };

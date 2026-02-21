@@ -3,12 +3,31 @@ const UI = {
     levelIntroTimer: 0,
     levelIntroText: '',
 
+    _drawSpaceBg(ctx) {
+        const grad = ctx.createLinearGradient(0, 0, 0, CANVAS_H);
+        grad.addColorStop(0, '#0a0a2e');
+        grad.addColorStop(0.5, '#12083a');
+        grad.addColorStop(1, '#1a0530');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+    },
+
+    _drawOverlay(ctx, alpha) {
+        const grad = ctx.createRadialGradient(
+            CANVAS_W / 2, CANVAS_H / 2, CANVAS_H * 0.1,
+            CANVAS_W / 2, CANVAS_H / 2, CANVAS_H * 0.8
+        );
+        grad.addColorStop(0, `rgba(0,0,0,${alpha * 0.5})`);
+        grad.addColorStop(1, `rgba(0,0,0,${alpha})`);
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+    },
+
     drawTitle(ctx) {
         this.titlePulse += 0.03;
 
-        // Background
-        ctx.fillStyle = '#0a0a2e';
-        ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+        // Background gradient
+        this._drawSpaceBg(ctx);
 
         // Stars background
         for (let i = 0; i < 60; i++) {
@@ -66,8 +85,7 @@ const UI = {
     drawLevelIntro(ctx, dt) {
         this.levelIntroTimer -= dt;
 
-        ctx.fillStyle = 'rgba(0,0,0,0.7)';
-        ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+        this._drawOverlay(ctx, 0.7);
 
         const worldNames = { '1': 'FORESTA INCANTATA', '2': 'CASTELLO OSCURO', '3': 'MONDO LEGO SPAZIALE' };
         const worldColors = { '1': '#4CAF50', '2': '#9C27B0', '3': '#2196F3' };
@@ -86,8 +104,7 @@ const UI = {
     },
 
     drawPause(ctx) {
-        ctx.fillStyle = 'rgba(0,0,0,0.6)';
-        ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+        this._drawOverlay(ctx, 0.6);
 
         ctx.textAlign = 'center';
         ctx.fillStyle = '#fff';
@@ -100,8 +117,7 @@ const UI = {
     },
 
     drawGameOver(ctx) {
-        ctx.fillStyle = 'rgba(0,0,0,0.8)';
-        ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+        this._drawOverlay(ctx, 0.8);
 
         ctx.textAlign = 'center';
         ctx.fillStyle = '#FF4444';
@@ -118,8 +134,7 @@ const UI = {
     },
 
     drawLevelComplete(ctx) {
-        ctx.fillStyle = 'rgba(0,0,0,0.7)';
-        ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+        this._drawOverlay(ctx, 0.7);
 
         ctx.textAlign = 'center';
         ctx.fillStyle = '#4CAF50';
@@ -141,8 +156,7 @@ const UI = {
     },
 
     drawBossIntro(ctx, timer) {
-        ctx.fillStyle = 'rgba(0,0,0,0.8)';
-        ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+        this._drawOverlay(ctx, 0.8);
 
         const worldNum = Game.currentLevel.charAt(0);
         const worldColors = { '1': '#4CAF50', '2': '#9C27B0', '3': '#2196F3' };
@@ -171,8 +185,7 @@ const UI = {
     },
 
     drawBossVictory(ctx) {
-        ctx.fillStyle = 'rgba(0,0,0,0.7)';
-        ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+        this._drawOverlay(ctx, 0.7);
 
         ctx.textAlign = 'center';
 
@@ -203,8 +216,7 @@ const UI = {
     drawVictory(ctx) {
         this.victoryTimer += 0.02;
 
-        ctx.fillStyle = '#0a0a2e';
-        ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+        this._drawSpaceBg(ctx);
 
         for (let i = 0; i < 100; i++) {
             const sx = (i * 137 + 50) % CANVAS_W;

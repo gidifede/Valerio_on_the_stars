@@ -99,8 +99,12 @@ const WorldMap = {
     },
 
     draw(ctx) {
-        // Dark background
-        ctx.fillStyle = '#0a0a2e';
+        // Gradient background
+        const grad = ctx.createLinearGradient(0, 0, 0, CANVAS_H);
+        grad.addColorStop(0, '#0a0a2e');
+        grad.addColorStop(0.5, '#12083a');
+        grad.addColorStop(1, '#1a0530');
+        ctx.fillStyle = grad;
         ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
 
         // Stars background

@@ -410,17 +410,17 @@ const LEVELS = {
         starsTotal: 0,
         isBoss: true,
         boss: { type: 'megatron_corrotto', col: 15, row: 8 },
-        // 20 columns x 14 rows — stone arena with platforms
+        // 20 columns x 14 rows — stone arena with platforms (raised for boss headroom)
         tiles: [
             '{OOOOOOOOOOOOOOOOOO}',  // 0
             'o                  o',  // 1
             'o                  o',  // 2
-            'o                  o',  // 3
-            'o                  o',  // 4
-            'o                  o',  // 5
-            'o     qpm          o',  // 6
-            'o            qpm   o',  // 7
-            'o   qpm            o',  // 8
+            'o     qpm          o',  // 3
+            'o            qpm   o',  // 4
+            'o   qpm            o',  // 5
+            'o                  o',  // 6
+            'o                  o',  // 7
+            'o                  o',  // 8
             'oOOOOOOOOOOOOOOOOOOo',  // 9
             'oooooooooooooooooooo',  // 10
             'WWWWWWWWWWWWWWWWWWWW',  // 11

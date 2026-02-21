@@ -40,11 +40,13 @@ const Particles = {
             const alpha = clamp(p.life / p.maxLife, 0, 1);
             ctx.globalAlpha = alpha;
             ctx.fillStyle = p.color;
-            ctx.fillRect(
-                Math.round(p.x - Camera.x - p.size / 2),
-                Math.round(p.y - Camera.y - p.size / 2),
-                p.size, p.size
+            ctx.beginPath();
+            ctx.arc(
+                Math.round(p.x - Camera.x),
+                Math.round(p.y - Camera.y),
+                p.size / 2, 0, Math.PI * 2
             );
+            ctx.fill();
         }
         ctx.globalAlpha = 1;
     },

@@ -302,6 +302,14 @@ const Enemies = {
             const dx = Math.round(e.x - Camera.x);
             const dy = Math.round(e.y - Camera.y);
 
+            // Ground shadow (proportional to enemy size)
+            if (e.alive) {
+                ctx.fillStyle = 'rgba(0,0,0,0.15)';
+                ctx.beginPath();
+                ctx.ellipse(dx + e.w / 2, dy + e.h, e.w * 0.4, Math.max(3, e.h * 0.07), 0, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
             ctx.save();
             if (!e.alive) ctx.globalAlpha = 1 - e.deadTimer * 2;
             if (!e.facingRight) {

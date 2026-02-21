@@ -101,10 +101,14 @@ const Collectibles = {
             const dy = item.y - Camera.y + bobY;
 
             if (item.animated) {
-                // Draw animated star from spritesheet
+                // Glow effect on stars
+                ctx.save();
+                ctx.shadowColor = '#FFD700';
+                ctx.shadowBlur = 12 + Math.sin(Date.now() * 0.005) * 6;
                 drawFrame(ctx, Images[item.imgKey],
                           STAR_ANIM.frameW, STAR_ANIM.frameH,
                           item.animFrame, dx, dy, false);
+                ctx.restore();
             } else {
                 const img = Images[item.imgKey];
                 if (img && img.complete) {

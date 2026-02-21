@@ -44,8 +44,9 @@ const Powerups = {
                 item.bobTimer += dt * 3;
             }
 
-            // Player pickup
-            const drawY = item.rising ? item.y : item.floatY + Math.sin(item.bobTimer) * 4;
+            // Player pickup (skip while still rising from ? block)
+            if (item.rising) continue;
+            const drawY = item.floatY + Math.sin(item.bobTimer) * 4;
             if (rectsOverlap(
                 Player.x, Player.y, Player.w, Player.h,
                 item.x, drawY, item.w, item.h
@@ -115,6 +116,13 @@ const Powerups = {
         return this.active && this.active.type === type;
     },
 
+    GLOW_COLORS: {
+        magnete_lego:    '#FF4444',
+        salto_stellare:  '#FFDD00',
+        scudo_robotico:  '#00FFFF',
+        gravita_ridotta: '#AA66FF',
+    },
+
     draw(ctx) {
         for (const item of this.items) {
             if (item.collected) continue;
@@ -126,11 +134,17 @@ const Powerups = {
             // Draw first frame of powerup spritesheet (32x32 from 128x32)
             const sx = 0, sy = 0;
             const posY = item.rising ? item.y : item.floatY;
+
+            // Glow effect
+            ctx.save();
+            ctx.shadowColor = this.GLOW_COLORS[item.type] || '#fff';
+            ctx.shadowBlur = 10 + Math.sin(Date.now() * 0.004) * 5;
             ctx.drawImage(img,
                 sx, sy, POWERUP_ANIM.frameW, POWERUP_ANIM.frameH,
                 Math.round(item.x - Camera.x),
                 Math.round(posY + bobY - Camera.y),
                 item.w, item.h);
+            ctx.restore();
         }
     },
 };

@@ -123,7 +123,18 @@ const Tilemap = {
 
                 const dx = col * TILE - Camera.x;
                 const dy = row * TILE - Camera.y;
-                ctx.drawImage(img, dx, dy, TILE, TILE);
+
+                // Wave animation for liquid tiles
+                if (tile === 'W' || tile === 'w' || tile === 'V' || tile === 'v') {
+                    const isTop = (tile === 'W' || tile === 'V');
+                    const waveY = isTop ? Math.sin(Date.now() * 0.003 + col * 0.5) * 2 : 0;
+                    const shimmer = 0.85 + Math.sin(Date.now() * 0.004 + col * 0.7 + row * 0.3) * 0.15;
+                    ctx.globalAlpha = shimmer;
+                    ctx.drawImage(img, dx, dy + waveY, TILE, TILE);
+                    ctx.globalAlpha = 1;
+                } else {
+                    ctx.drawImage(img, dx, dy, TILE, TILE);
+                }
             }
         }
     },

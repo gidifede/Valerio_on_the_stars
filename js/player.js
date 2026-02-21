@@ -239,6 +239,16 @@ const Player = {
         const dx = Math.round(this.x + this.drawOffX - Camera.x);
         const dy = Math.round(this.y + this.drawOffY - Camera.y);
 
+        // Ground shadow (soft, proportional to player)
+        ctx.fillStyle = 'rgba(0,0,0,0.18)';
+        ctx.beginPath();
+        ctx.ellipse(
+            Math.round(this.x + this.w / 2 - Camera.x),
+            Math.round(this.y + this.h - Camera.y),
+            this.w * 0.45, 4, 0, 0, Math.PI * 2
+        );
+        ctx.fill();
+
         // Shield glow effect
         if (typeof Powerups !== 'undefined' && Powerups.isActive('scudo_robotico')) {
             ctx.save();

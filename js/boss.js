@@ -359,6 +359,12 @@ const Boss = {
         const dx = Math.round(b.x - Camera.x);
         const dy = Math.round(b.y - Camera.y);
 
+        // Ground shadow (proportional to boss size)
+        ctx.fillStyle = 'rgba(0,0,0,0.2)';
+        ctx.beginPath();
+        ctx.ellipse(dx + b.w / 2, dy + b.h, b.w * 0.4, Math.max(5, b.h * 0.08), 0, 0, Math.PI * 2);
+        ctx.fill();
+
         ctx.save();
 
         // Damage flash
